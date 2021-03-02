@@ -11,5 +11,6 @@
   "license": "ISC",
   "dependencies": {
     "clipboardy": "^2.3.0"
-  }
+  },
+  "devDependencies": {}
 }
