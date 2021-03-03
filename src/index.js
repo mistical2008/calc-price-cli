@@ -27,17 +27,26 @@ const roundTo = 100;
 const priceMap = new Map(priceRanges);
 
 // Utils
-const round = (number) => {
+const roundDecimal = (number) => {
+  return Math.round(number.toFixed(3) * 100) / 100;
+  // return Math.round(number / roundTo) * roundTo;
+};
+
+const roundInt = (number) => {
   return Math.round(number / roundTo) * roundTo;
 };
 
+const getPrice = (basePrice, rate) => {
+  return roundDecimal(Number(basePrice) * Number(1 + rate));
+};
+
 const getPriceWithTax = (basePrice) => {
-  return Number(basePrice) * Number(1 + 0.2);
+  return getPrice(basePrice, 0.2);
 };
 
 const getSellPrice = (basePrice, rate) => {
   console.log("Price rate:", rate);
-  return round(Number(basePrice) * Number(1 + rate));
+  return roundInt(getPrice(basePrice, rate));
 };
 
 const calculatePrice = (price) => {
@@ -52,19 +61,17 @@ const setResString = (basePrice = 0, partNumber = null, qty) => {
   // defalult: basePrice only
   const buyPrice = getPriceWithTax(basePrice);
   const sellPrice = calculatePrice(getPriceWithTax(basePrice));
+  const buyPriceSum = (buyPrice * Number(qty)).toFixed(2);
+  const sellPriceSum = (sellPrice * Number(qty)).toFixed(2);
 
   // console.log("Qty type:", typeof qty);
   // console.log("Number(qty) type:", typeof Number(qty), Number(qty));
   // console.log("sellPrice from setResString:", sellPrice);
 
   if (!partNumber) {
-    return `${qty}шт.: ${buyPrice * Number(qty)}-${
-      sellPrice * Number(qty)
-    } руб.`;
+    return `${qty}шт.: ${buyPriceSum}-${sellPriceSum} руб.`;
   } else {
-    return `${partNumber} (${qty}шт.): ${buyPrice * Number(qty)}-${
-      sellPrice * Number(qty)
-    } руб.`;
+    return `${partNumber} (${qty}шт.): ${buyPriceSum}-${sellPriceSum} руб.`;
   }
 };
 
