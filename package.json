@@ -9,6 +9,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "bin": {
+    "price-calc": "./src/index.js"
+  },
   "dependencies": {
     "clipboardy": "^2.3.0"
   },

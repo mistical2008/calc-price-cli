@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 // inputs:  basePrice<number> partNumber<string> qty?<number>
 // output: buy-sel-prices<string> "2200-3900 руб."
 // Steps:
@@ -49,17 +50,21 @@ const calculatePrice = (price) => {
 
 const setResString = (basePrice = 0, partNumber = null, qty) => {
   // defalult: basePrice only
-  const buyPrice = getPriceWithTax(basePrice) * Number(qty);
-  const sellPrice = calculatePrice(getPriceWithTax(basePrice) * Number(qty));
+  const buyPrice = getPriceWithTax(basePrice);
+  const sellPrice = calculatePrice(getPriceWithTax(basePrice));
 
   // console.log("Qty type:", typeof qty);
   // console.log("Number(qty) type:", typeof Number(qty), Number(qty));
   // console.log("sellPrice from setResString:", sellPrice);
 
   if (!partNumber) {
-    return `${qty}шт.: ${buyPrice}-${sellPrice} руб.`;
+    return `${qty}шт.: ${buyPrice * Number(qty)}-${
+      sellPrice * Number(qty)
+    } руб.`;
   } else {
-    return `${partNumber} (${qty}шт.): ${buyPrice}-${sellPrice} руб.`;
+    return `${partNumber} (${qty}шт.): ${buyPrice * Number(qty)}-${
+      sellPrice * Number(qty)
+    } руб.`;
   }
 };
 
