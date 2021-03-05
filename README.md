@@ -5,6 +5,7 @@
 - `nodejs`
 - `git`
 - `Autohotkey` (for Windows)
+- `Git-bash` (for Windows)
 
 ## Install
 - clone project: `git clone https://github.com/mistical2008/calc-price-cli.git`
